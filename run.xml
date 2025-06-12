@@ -1,0 +1,7 @@
+<suite name="Payslate">
+    <test name="Payslate testing">
+        <classes>
+            <class name="Runner.paySlateRunner"/>
+        </classes>
+    </test>
+</suite>
