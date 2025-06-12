@@ -13,5 +13,14 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      - name: Run Appium Tests
-        run: mvn clean test -DsuiteXmlFile=run.xml
+      - name: Print Emulator and Appium Info (Debug)
+        run: |
+          echo "Connected devices:"
+          adb devices
+          echo "Appium running on port 4723?"
+          lsof -i :4723 || echo "Appium not running!"
+
+      - name: Run Appium Tests with Maven
+        run: |
+          echo "Starting Appium tests..."
+          mvn clean test -DsuiteXmlFile=run.xml -X
