@@ -2,7 +2,7 @@ name: Run Appium Tests (TestNG + Maven)
 
 on:
   push:
-    branches: [ master ]  # or main if you use that branch
+    branches: [ master ]
   pull_request:
 
 jobs:
@@ -19,10 +19,5 @@ jobs:
           distribution: 'temurin'
           java-version: '17'
 
-      - name: Set up Maven
-        uses: s4u/setup-maven-action@v1
-        with:
-          maven-version: '3.9.6'
-
-      - name: Run Tests via TestNG Suite
+      - name: Run Tests using Maven and run.xml
         run: mvn clean test -DsuiteXmlFile=run.xml
