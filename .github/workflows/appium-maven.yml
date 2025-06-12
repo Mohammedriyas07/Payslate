@@ -7,7 +7,7 @@ on:
 
 jobs:
   test:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-latest  # or ubuntu-24.04 if you want to lock version
 
     steps:
       - name: Checkout code
@@ -19,5 +19,8 @@ jobs:
           distribution: 'temurin'
           java-version: '17'
 
-      - name: Run Tests using Maven and run.xml
+      - name: Verify Maven version
+        run: mvn -version
+
+      - name: Run Tests with run.xml
         run: mvn clean test -DsuiteXmlFile=run.xml
