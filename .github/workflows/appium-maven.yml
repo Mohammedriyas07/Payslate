@@ -1,4 +1,4 @@
-name: Run Appium Tests (TestNG + Maven)
+name: Run Appium Tests Locally (Self-Hosted)
 
 on:
   push:
@@ -7,20 +7,11 @@ on:
 
 jobs:
   test:
-    runs-on: ubuntu-latest  # or ubuntu-24.04 if you want to lock version
+    runs-on: self-hosted
 
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      - name: Set up Java
-        uses: actions/setup-java@v4
-        with:
-          distribution: 'temurin'
-          java-version: '17'
-
-      - name: Verify Maven version
-        run: mvn -version
-
-      - name: Run Tests with run.xml
+      - name: Run Appium Tests
         run: mvn clean test -DsuiteXmlFile=run.xml
