@@ -25,6 +25,8 @@ public class Hooks {
         desiredCapabilities.setCapability("appPackage", Util.getInstance().getApp_package());
         desiredCapabilities.setCapability("appActivity", Util.getInstance().getApp_activity());
         desiredCapabilities.setCapability("autoGrantPermissions", true);
+        desiredCapabilities.setCapability("appWaitForLaunch", false);
+        desiredCapabilities.setCapability("appWaitActivity", "*");
 
         try {
             Drivermanager.getInstance().setDriver(new AndroidDriver(new URL(Util.getInstance().getHost_url()), desiredCapabilities));
