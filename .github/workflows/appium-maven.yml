@@ -28,5 +28,5 @@ jobs:
           echo "Emulator is fully booted."
 
       - name: Run Appium Tests
-        working-directory: ./Payslate   # Adjust if your pom.xml is not in root
+        working-directory: ${{ github.workspace }}   # Adjust if your pom.xml is not in root
         run: mvn clean test -DsuiteXmlFile=run.xml
