@@ -19,7 +19,7 @@
     public class Login_screen {
         private static Login_screen loginScreen;
 
-        private By textBox = By.xpath("//android.widget.EditText");
+        private By textBox = By.xpath("//android.widget.EditText[@hint='Phone Number']");
         private By continueBtn = By.xpath("//android.widget.Button[@content-desc='Continue']");
         private By otp = By.xpath("//android.view.View[contains(@content-desc,'Your OTP number is')]");
         private By warningPopup = By.xpath("//android.view.View[@content-desc='Please enter a valid phone number']");
