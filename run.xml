@@ -1,4 +1,9 @@
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
 <suite name="Payslate">
+    <listeners>
+        <listener class-name="Retry.Annotation"/>
+    </listeners>
+
     <test name="Payslate testing">
         <classes>
             <class name="Runner.paySlateRunner"/>

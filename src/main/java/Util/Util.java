@@ -33,7 +33,6 @@ public class Util {
             properties=new Properties();
             properties.load(inputStream);
             this.dataFormatter=new DataFormatter();
-
         }
         catch (IOException e)
         {
@@ -153,4 +152,4 @@ public class Util {
             return "";
         }
     }
-}
+    }
