@@ -48,7 +48,7 @@ public class BusinessListScreen {
      wait=new WebDriverWait(Drivermanager.getInstance().getDriver(), Duration.ofSeconds(10));
      Services.getInstance().loader();
      wait.until(ExpectedConditions.elementToBeClickable(AppiumBy.accessibilityId("Add Business"))).click();
-     System.out.println(Drivermanager.getInstance().getDriver().getPageSource());
+     //System.out.println(Drivermanager.getInstance().getDriver().getPageSource());
  }
  public void enterBusinessname(boolean singletxt)
  {

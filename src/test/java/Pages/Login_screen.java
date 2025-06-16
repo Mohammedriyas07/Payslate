@@ -90,7 +90,9 @@
         }
 
         public void enterInvalidOtp() {
-            Drivermanager.getInstance().getDriver().findElement(textBox).click();
+            //Drivermanager.getInstance().getDriver().findElement(textBox).click();
+            wait=new WebDriverWait(Drivermanager.getInstance().getDriver(), Duration.ofSeconds(15));
+            wait.until(ExpectedConditions.presenceOfElementLocated(textBox)).click();
             Action.getInstance().type("123456");
         }
 
