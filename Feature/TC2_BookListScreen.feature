@@ -7,14 +7,24 @@ Feature: Feature to automate the book list screen
     And the user click the continue button
     And the user enter the OTP
     And the user click the continue button
-    And the user click the Add business button
-   @bookList1
+
+   @bookList1 @regression
   Scenario: create new book under new business
+    And the user click the Add business button
     When the user enter the business name
     And the user add the profile picture for the business
     And the user click the save button
     Then verify business name add in business list screen
     When the user click the newly create business
+    And the user click the add book button
+    And the user enter the book name inside the text box
+    #And the user select the currency type as ""
+    And the user select the transaction type "all"
+    And the user click the save button
+
+  @bookList2 @regression
+  Scenario: create new book under existing business business
+    When the user click the existing business
     And the user click the add book button
     And the user enter the book name inside the text box
     #And the user select the currency type as ""

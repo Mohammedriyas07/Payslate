@@ -48,5 +48,8 @@ public class BusinessListScreenStepdef {
     }
 
 
-
+    @When("the user click the existing business")
+    public void theUserClickTheExistingBusiness() {
+        BusinessListScreen.getInstance().clickExistingBusiness();
+    }
 }
