@@ -24,8 +24,3 @@ Feature: Feature to automate the book list screen
 
 
 
-#    Examples:
-#      | transactionType |
-#      |cash           |
-#      |all            |
-#      |material       |
