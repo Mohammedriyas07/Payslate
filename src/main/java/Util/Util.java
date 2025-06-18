@@ -100,6 +100,7 @@ public class Util {
       for(int i=0;i<lastcell;i++)
       {
           newRow.createCell(i).setCellValue(customerDetails[i]);
+          System.out.println("adding...");
       }
         try
         {
@@ -107,6 +108,7 @@ public class Util {
             workbook.write(outputStream);
             outputStream.flush();
             outputStream.close();
+            System.out.println("added....");
         }
         catch (Exception e)
         {

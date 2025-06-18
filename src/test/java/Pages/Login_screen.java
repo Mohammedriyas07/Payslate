@@ -103,12 +103,13 @@
 
         public void enterNewMobileNumber() {
             Drivermanager.getInstance().getDriver().findElement(textBox).click();
-            Action.getInstance().type(Util.getInstance().getNewMobileNumber());
+            this.mobileNumber=Util.getInstance().getNewMobileNumber();
+            Action.getInstance().type(mobileNumber);
         }
 
         public void enterNewUserName() {
             wait = new WebDriverWait(Drivermanager.getInstance().getDriver(), Duration.ofSeconds(30));
-            WebElement username_element = wait.until(ExpectedConditions.visibilityOfElementLocated(name_textBox_userCreation));
+            WebElement username_element = wait.until(ExpectedConditions.elementToBeClickable(name_textBox_userCreation));
             username_element.click();
             this.username = "test" + Services.getInstance().randomNumberGenerator();
 
@@ -130,10 +131,17 @@
         }
 
         public void clickCreateAccountbtn() {
-            Drivermanager.getInstance().getDriver().findElement(createAccount_btn_userCreation).click();
+
             if (!this.username.isEmpty() && !this.mobileNumber.isEmpty() && !this.email.isEmpty() && !this.password.isEmpty()) {
                 Util.getInstance().setUserDetails(this.mobileNumber, this.username, this.email, this.password);
                 Util.getInstance().insertData();
+                System.out.println("inserted");
+                Drivermanager.getInstance().getDriver().findElement(createAccount_btn_userCreation).click();
+            }
+            else
+            {
+                System.out.println(username+ " "+email+" "+mobileNumber+" "+password);
+                System.out.println("nooyyttttt");
             }
         }
 

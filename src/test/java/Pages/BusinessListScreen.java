@@ -7,9 +7,11 @@ import Helper.Datas;
 import Helper.Services;
 import io.appium.java_client.AppiumBy;
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import java.time.Duration;
+import java.util.List;
 
 public class BusinessListScreen {
  private By add_businessBtn=By.xpath("//android.widget.ImageView[contains(@content-desc,'Add Business')]");
@@ -59,7 +61,8 @@ public class BusinessListScreen {
      }
      else {
         this.business_name= Services.getInstance().getBusinessName();
-      Action.getInstance().type(this.business_name);
+
+        Action.getInstance().type(this.business_name);
      }
  }
  public void clickSaveBtn()
@@ -108,4 +111,11 @@ public class BusinessListScreen {
           System.out.println("not added");
       }
   }
+    public void clickNewlyCreatedBusiness()
+    {
+        Services.getInstance().loader();
+    Drivermanager.getInstance().getDriver()
+                .findElement(By.xpath("//android.widget.ImageView[contains(@content-desc, '" + this.business_name + "')]"))
+                .click();
+    }
 }

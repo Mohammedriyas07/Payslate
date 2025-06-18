@@ -47,4 +47,9 @@ public class Services {
                 By.xpath("//android.view.View[@content-desc='Loading...']")
         ));
     }
+    public WebDriverWait waiter()
+    {
+        WebDriverWait wait=new WebDriverWait(Drivermanager.getInstance().getDriver(), Duration.ofSeconds(30));
+        return wait;
+    }
 }
