@@ -30,6 +30,7 @@ Feature: Feature to automate the book list screen
     #And the user select the currency type as ""
     And the user select the transaction type "all"
     And the user click the save button
+    And the user verify the book name in book list screen
 
 
 
