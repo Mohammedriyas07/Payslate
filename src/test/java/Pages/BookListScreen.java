@@ -11,6 +11,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import org.testng.Assert;
 
 import java.security.Provider;
 import java.util.HashMap;
@@ -42,14 +43,16 @@ public class BookListScreen {
     }
     public void clickAddBookButton()
     {
-      Services.getInstance().loader();
+       Services.getInstance().loader();
        WebElement btn= Services.getInstance().waiter().until(ExpectedConditions.elementToBeClickable(addBookBtn));
        btn.click();
     }
+    private String bookName;
     public void enterBookname()
     {
         Drivermanager.getInstance().getDriver().findElement(this.bookNameTextBox).click();
-        Action.getInstance().type(Services.getInstance().getBookName());
+        this.bookName=Services.getInstance().getBookName();
+        Action.getInstance().type(this.bookName);
         ((AndroidDriver) Drivermanager.getInstance().getDriver()).pressKey(new KeyEvent(AndroidKey.BACK));
 
 
@@ -63,5 +66,18 @@ public class BookListScreen {
                Drivermanager.getInstance().getDriver().findElement(By.xpath(this.transactionType.get(key)));
            }
        }
+   }
+   public void verifyBookName()
+   {
+       String xpath = "//android.widget.ImageView[contains(@content-desc,'" + this.bookName + "')]";
+      String book= Drivermanager.getInstance().getDriver().findElement(By.xpath(xpath)).getAttribute("content-desc");
+      if (book.indexOf(this.bookName)!=-1)
+      {
+          System.out.println("book successfully added");
+      }
+      else {
+          throw new RuntimeException("book not added in book list screen");
+      }
+
    }
 }

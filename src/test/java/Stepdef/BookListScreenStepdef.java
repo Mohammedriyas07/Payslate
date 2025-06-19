@@ -33,4 +33,8 @@ public class BookListScreenStepdef {
     }
 
 
+    @And("the user verify the book name in book list screen")
+    public void theUserVerifyTheBookNameInBookListScreen() {
+        BookListScreen.getInstance().verifyBookName();
+    }
 }
