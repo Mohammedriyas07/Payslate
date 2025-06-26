@@ -52,22 +52,29 @@
         }
 
         public void enterMobileNumber() {
-            Drivermanager.getInstance().getDriver().findElement(textBox).click();
+           // Drivermanager.getInstance().getDriver().findElement(textBox).click();
+           WebElement textbox= Services.getInstance().waiter().until(ExpectedConditions.visibilityOfElementLocated(textBox));
+           textbox.click();
             Action.getInstance().type(String.valueOf(Datas.MobileNumber.valid_num1.getNumber()));
         }
 
         public void enterInvalidMobileNumber() {
-            Drivermanager.getInstance().getDriver().findElement(textBox).click();
+            WebElement textbox=Services.getInstance().waiter().until(ExpectedConditions.visibilityOfElementLocated(textBox));
+            textbox.click();
             Action.getInstance().type(String.valueOf(Datas.MobileNumber.invalid_num1.getNumber()));
         }
 
         public void clickContinueBtn() {
-            Drivermanager.getInstance().getDriver().findElement(continueBtn).click();
+
+          WebElement btn=  Services.getInstance().waiter().until(ExpectedConditions.elementToBeClickable(continueBtn));
+          btn.click();
         }
 
         public void enterOtp() {
             AppiumDriver driver = Drivermanager.getInstance().getDriver();
-            String v = driver.findElement(otp).getAttribute("content-desc");
+           // String v = driver.findElement(otp).getAttribute("content-desc");
+           WebElement el= Services.getInstance().waiter().until(ExpectedConditions.visibilityOfElementLocated(otp));
+           String v= el.getAttribute("content-desc");
             System.out.println(v);
             Pattern p = Pattern.compile("\\d");
             Matcher matcher = p.matcher(v);
@@ -102,7 +109,9 @@
         }
 
         public void enterNewMobileNumber() {
-            Drivermanager.getInstance().getDriver().findElement(textBox).click();
+           // Drivermanager.getInstance().getDriver().findElement(textBox).click();
+           WebElement textbox= Services.getInstance().waiter().until(ExpectedConditions.visibilityOfElementLocated(textBox));
+           textbox.click();
             this.mobileNumber=Util.getInstance().getNewMobileNumber();
             Action.getInstance().type(mobileNumber);
         }
@@ -117,8 +126,7 @@
         }
 
         public void enterNewEmailId() {
-            wait = new WebDriverWait(Drivermanager.getInstance().getDriver(), Duration.ofSeconds(30));
-            WebElement element = wait.until(ExpectedConditions.visibilityOfElementLocated(email_textBox_userCreation));
+         WebElement element= Services.getInstance().waiter().until(ExpectedConditions.visibilityOfElementLocated(email_textBox_userCreation));
             element.click();
             this.email = this.username + "@gmail.com";
             Action.getInstance().type(this.email);
@@ -136,12 +144,16 @@
                 Util.getInstance().setUserDetails(this.mobileNumber, this.username, this.email, this.password);
                 Util.getInstance().insertData();
                 System.out.println("inserted");
-                Drivermanager.getInstance().getDriver().findElement(createAccount_btn_userCreation).click();
+
+              WebElement btn=  Services.getInstance().waiter().until(ExpectedConditions.elementToBeClickable(createAccount_btn_userCreation));
+              btn.click();
             }
             else
             {
                 System.out.println(username+ " "+email+" "+mobileNumber+" "+password);
                 System.out.println("nooyyttttt");
+                WebElement btn=  Services.getInstance().waiter().until(ExpectedConditions.elementToBeClickable(createAccount_btn_userCreation));
+                btn.click();
             }
         }
 

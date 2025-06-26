@@ -8,7 +8,7 @@ Feature: Feature to automate the book list screen
     And the user enter the OTP
     And the user click the continue button
 
-   @bookList1 @regression
+   @bookList1 @regression @sanity2
   Scenario: create new book under new business
     And the user click the Add business button
     When the user enter the business name
@@ -23,7 +23,7 @@ Feature: Feature to automate the book list screen
     And the user click the save button
     And the user verify the book name in book list screen
 
-  @bookList2 @regression
+  @bookList2 @regression @sanity2
   Scenario: create new book under existing business business
     When the user click the existing business
     And the user click the add book button
@@ -32,6 +32,7 @@ Feature: Feature to automate the book list screen
     And the user select the transaction type "all"
     And the user click the save button
     And the user verify the book name in book list screen
+    And the check the book count in business list screen
 
 
 

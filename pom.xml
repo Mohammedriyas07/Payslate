@@ -1,5 +1,7 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
   <modelVersion>4.0.0</modelVersion>
 
   <groupId>org.example</groupId>
@@ -22,18 +24,28 @@
     <commons.version>2.16.1</commons.version>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
   </properties>
+
   <dependencyManagement>
     <dependencies>
+      <!-- Force Commons IO version -->
       <dependency>
         <groupId>commons-io</groupId>
         <artifactId>commons-io</artifactId>
         <version>2.16.1</version>
       </dependency>
+
+      <!-- Force io.cucumber:messages version to resolve version conflict -->
+      <dependency>
+        <groupId>io.cucumber</groupId>
+        <artifactId>messages</artifactId>
+        <version>27.2.0</version>
+      </dependency>
     </dependencies>
   </dependencyManagement>
 
+
   <dependencies>
-    <!-- https://mvnrepository.com/artifact/io.appium/java-client -->
+    <!-- Appium and Selenium -->
     <dependency>
       <groupId>io.appium</groupId>
       <artifactId>java-client</artifactId>
@@ -69,7 +81,6 @@
         </exclusion>
       </exclusions>
     </dependency>
-
     <dependency>
       <groupId>org.seleniumhq.selenium</groupId>
       <artifactId>selenium-java</artifactId>
@@ -80,77 +91,84 @@
       <artifactId>selenium-chrome-driver</artifactId>
       <version>${seleniumChromeDriver.version}</version>
     </dependency>
-    <!-- add more drivers if needed -->
 
-    <!-- https://mvnrepository.com/artifact/org.testng/testng -->
+    <!-- TestNG & Cucumber -->
     <dependency>
       <groupId>org.testng</groupId>
       <artifactId>testng</artifactId>
       <version>${testNG.version}</version>
       <scope>test</scope>
     </dependency>
-    <!-- https://mvnrepository.com/artifact/io.cucumber/cucumber-java -->
     <dependency>
       <groupId>io.cucumber</groupId>
       <artifactId>cucumber-java</artifactId>
       <version>${cucumberJava.version}</version>
       <scope>test</scope>
     </dependency>
-    <!-- https://mvnrepository.com/artifact/io.cucumber/cucumber-testng -->
     <dependency>
       <groupId>io.cucumber</groupId>
       <artifactId>cucumber-testng</artifactId>
       <version>${cucumberTestNG.version}</version>
       <scope>test</scope>
     </dependency>
+
+    <!-- Gson -->
     <dependency>
       <groupId>com.google.code.gson</groupId>
       <artifactId>gson</artifactId>
       <version>${gson.version}</version>
     </dependency>
-    <!-- https://mvnrepository.com/artifact/org.apache.poi/poi-ooxml -->
-<!--    <dependency>-->
-<!--      <groupId>org.apache.poi</groupId>-->
-<!--      <artifactId>poi-ooxml</artifactId>-->
-<!--      <version>${apachePoi.version}</version>-->
-<!--      <exclusions>-->
-<!--        <exclusion>-->
-<!--          <groupId>commons-io</groupId>-->
-<!--          <artifactId>commons-io</artifactId>-->
-<!--        </exclusion>-->
-<!--      </exclusions>-->
-<!--    </dependency>-->
+
+    <!-- Apache POI -->
     <dependency>
       <groupId>org.apache.poi</groupId>
       <artifactId>poi-ooxml</artifactId>
       <version>${apachePoi.version}</version>
     </dependency>
+
+    <!-- Commons IO -->
     <dependency>
       <groupId>commons-io</groupId>
       <artifactId>commons-io</artifactId>
       <version>${commons.version}</version>
     </dependency>
 
-
-
+    <dependency>
+      <groupId>io.qameta.allure</groupId>
+      <artifactId>allure-cucumber7-jvm</artifactId>
+      <version>2.25.0</version>
+    </dependency>
 
   </dependencies>
+
   <build>
     <plugins>
+      <!-- TestNG runner -->
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-surefire-plugin</artifactId>
-        <version>3.1.2</version> <!-- or latest stable -->
+        <version>3.1.2</version>
         <configuration>
           <suiteXmlFiles>
             <suiteXmlFile>run.xml</suiteXmlFile>
           </suiteXmlFiles>
+          <systemPropertyVariables>
+            <allure.results.directory>target/allure-results</allure.results.directory>
+          </systemPropertyVariables>
         </configuration>
       </plugin>
 
       <plugin>
+        <groupId>io.qameta.allure</groupId>
+        <artifactId>allure-maven</artifactId>
+        <version>2.11.2</version>
+      </plugin>
+
+      <!-- Compiler -->
+      <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-compiler-plugin</artifactId>
+        <version>3.10.1</version>
         <configuration>
           <source>9</source>
           <target>9</target>

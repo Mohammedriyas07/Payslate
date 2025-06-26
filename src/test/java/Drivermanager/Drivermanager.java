@@ -32,7 +32,7 @@ public class Drivermanager {
         if (appiumDriver.get() == null || appiumDriver.get().getSessionId() == null) {
             throw new IllegalStateException("Driver session is invalid or has been quit.");
         }
-        appiumDriver.get().manage().timeouts().implicitlyWait(Duration.ofSeconds(30));
+       // appiumDriver.get().manage().timeouts().implicitlyWait(Duration.ofSeconds(30));
         return appiumDriver.get();
     }
 

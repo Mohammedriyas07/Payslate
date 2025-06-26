@@ -37,4 +37,11 @@ public class BookListScreenStepdef {
     public void theUserVerifyTheBookNameInBookListScreen() {
         BookListScreen.getInstance().verifyBookName();
     }
+
+    @And("the check the book count in business list screen")
+    public void theCheckTheBookCountInBusinessListScreen() {
+        BookListScreen.getInstance().verifyBookCountInBusinessListScreen();
+    }
+
+
 }
