@@ -32,7 +32,7 @@ public class BookListScreen {
     {
         transactionType.put("all","//android.widget.RadioButton[contains(@content-desc, 'All')]");
         transactionType.put("cash","//android.widget.RadioButton[contains(@content-desc, 'Cash') and not(contains(@content-desc, 'All'))]");
-        transactionType.put("material","//android.widget.RadioButton[contains(@content-desc, 'Material')]");
+        transactionType.put("material","//android.widget.RadioButton[contains(@content-desc, 'Material') and not(contains(@content-desc, 'All'))] ");
     }
     public static  BookListScreen getInstance()
     {
@@ -56,21 +56,25 @@ public class BookListScreen {
     public void enterBookname()
     {
         //Drivermanager.getInstance().getDriver().findElement(this.bookNameTextBox).click();
-       WebElement txtbox= Services.getInstance().waiter().until(ExpectedConditions.visibilityOfElementLocated(this.bookNameTextBox));
+       WebElement txtbox= Services.getInstance().waiter().until(ExpectedConditions.elementToBeClickable(this.bookNameTextBox));
        txtbox.click();
         this.bookName=Services.getInstance().getBookName();
         Action.getInstance().type(this.bookName);
-        ((AndroidDriver) Drivermanager.getInstance().getDriver()).pressKey(new KeyEvent(AndroidKey.BACK));
+
 
 
     }
    public void selectTransactionType(String transactionType)
    {
+
+       ((AndroidDriver) Drivermanager.getInstance().getDriver()).pressKey(new KeyEvent(AndroidKey.BACK));
        for (String key :this.transactionType.keySet())
        {
            if (transactionType.equalsIgnoreCase(key))
            {
-               Drivermanager.getInstance().getDriver().findElement(By.xpath(this.transactionType.get(key)));
+             WebElement element=  Services.getInstance().waiter().until(ExpectedConditions.elementToBeClickable(By.xpath(this.transactionType.get(key))));
+             element.click();
+             break;
            }
        }
    }
@@ -119,5 +123,12 @@ public class BookListScreen {
            System.out.println("count not matched"+" book count= "+bookCount+", reminder = "+remainder);
        }
 
+   }
+
+   public void clickBookName()
+   {
+       String xpath = "//android.widget.ImageView[contains(@content-desc,'" + this.bookName + "')]";
+       WebElement element=Drivermanager.getInstance().getDriver().findElement(By.xpath(xpath));
+       element.click();
    }
 }

@@ -6,7 +6,7 @@ import io.cucumber.testng.CucumberOptions;
 @CucumberOptions(
         features = "Feature",
         glue = {"Stepdef", "Hooks"},
-        tags = "@regression",
+        tags = "@material",
         plugin = {"io.qameta.allure.cucumber7jvm.AllureCucumber7Jvm"},
         monochrome = true
 )

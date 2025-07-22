@@ -73,4 +73,18 @@ public class Datas {
             return this.errorMsg;
         }
     }
+    public  enum  remarks
+    {
+        cashRemark("boys"),
+        cashRemark1("jack");
+        private final String remark;
+        remarks(String remark)
+        {
+            this.remark=remark;
+        }
+        public String getRemark()
+        {
+            return  this.remark;
+        }
+    }
 }
