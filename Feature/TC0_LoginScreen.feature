@@ -18,7 +18,7 @@ Feature: feature to verify splash screen
     And the user click the continue button
     And the user enter the invalid OTP number
     And the user click the continue button
-    Then the user verify the warning popup message for ending invalid OTP
+    And the user verify the warning popup message for ending invalid OTP
 
   @regression  @login4 @sanity0
   Scenario: to verify login functionality with existing mobile number

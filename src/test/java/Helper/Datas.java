@@ -4,7 +4,8 @@ public class Datas {
     public enum MobileNumber {
         valid_num1(7897897897L),
         invalid_num1(5879879879L),
-        valid_num2(7777777777L);
+        valid_num2(7777777777L),
+        prod_num1(9874566547L);
 
         private final long number;
 
@@ -85,6 +86,19 @@ public class Datas {
         public String getRemark()
         {
             return  this.remark;
+        }
+    }
+    public enum category
+    {
+        category1("abc");
+        private final String c;
+        category(String c)
+        {
+            this.c=c;
+        }
+        public String getCategory()
+        {
+            return this.c;
         }
     }
 }

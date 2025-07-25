@@ -51,10 +51,9 @@ public class LoginScreenStepdef {
     @And("the user enter the invalid OTP number")
     public void theUserEnterTheInvalidOTPNumber() {
     Login_screen.getInstance().enterInvalidOtp();
-
     }
 
-    @Then("the user verify the warning popup message for ending invalid OTP")
+    @And("the user verify the warning popup message for ending invalid OTP")
     public void theUserVerifyTheWarningPopupMessageForEndingInvalidOTP() {
         Login_screen.getInstance().verifyOtpErrorMsg();
     }

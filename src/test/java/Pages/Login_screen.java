@@ -9,6 +9,7 @@
     import io.appium.java_client.AppiumDriver;
     import org.openqa.selenium.By;
     import org.openqa.selenium.WebElement;
+    import org.openqa.selenium.interactions.Actions;
     import org.openqa.selenium.support.ui.ExpectedConditions;
     import org.openqa.selenium.support.ui.WebDriverWait;
 
@@ -55,7 +56,7 @@
            // Drivermanager.getInstance().getDriver().findElement(textBox).click();
            WebElement textbox= Services.getInstance().waiter().until(ExpectedConditions.visibilityOfElementLocated(textBox));
            textbox.click();
-            Action.getInstance().type(String.valueOf(Datas.MobileNumber.valid_num1.getNumber()));
+            Action.getInstance().type(String.valueOf(Datas.MobileNumber.prod_num1.getNumber()));
         }
 
         public void enterInvalidMobileNumber() {
@@ -97,9 +98,18 @@
         }
 
         public void enterInvalidOtp() {
-            //Drivermanager.getInstance().getDriver().findElement(textBox).click();
-            wait=new WebDriverWait(Drivermanager.getInstance().getDriver(), Duration.ofSeconds(15));
-            wait.until(ExpectedConditions.presenceOfElementLocated(textBox)).click();
+            AppiumDriver driver = Drivermanager.getInstance().getDriver();
+            // String v = driver.findElement(otp).getAttribute("content-desc");
+            WebElement el= Services.getInstance().waiter().until(ExpectedConditions.visibilityOfElementLocated(otp));
+            String v= el.getAttribute("content-desc");
+            System.out.println(v);
+            Pattern p = Pattern.compile("\\d");
+            Matcher matcher = p.matcher(v);
+            String otp_num = "";
+            while (matcher.find()) {
+                otp_num = otp_num + matcher.group();
+            }
+            driver.findElement(textBox).click();
             Action.getInstance().type("123456");
         }
 
@@ -169,8 +179,7 @@
         }
 
         public void enterLessThanThreeCharinUserTextBox() {
-            wait = new WebDriverWait(Drivermanager.getInstance().getDriver(), Duration.ofSeconds(30));
-            WebElement username_element = wait.until(ExpectedConditions.visibilityOfElementLocated(name_textBox_userCreation));
+            WebElement username_element= Services.getInstance().waiter().until(ExpectedConditions.elementToBeClickable(name_textBox_userCreation));
             username_element.click();
             Action.getInstance().type("Hi");
         }

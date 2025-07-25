@@ -60,14 +60,15 @@ public class BookListScreen {
        txtbox.click();
         this.bookName=Services.getInstance().getBookName();
         Action.getInstance().type(this.bookName);
-
-
+      WebElement e=Drivermanager.getInstance().getDriver().findElement(By.xpath("//android.view.View[@content-desc='Business Book']"));
+e.click();
+       // ((AndroidDriver) Drivermanager.getInstance().getDriver()).pressKey(new KeyEvent(AndroidKey.BACK));
 
     }
    public void selectTransactionType(String transactionType)
    {
 
-       ((AndroidDriver) Drivermanager.getInstance().getDriver()).pressKey(new KeyEvent(AndroidKey.BACK));
+
        for (String key :this.transactionType.keySet())
        {
            if (transactionType.equalsIgnoreCase(key))
@@ -127,6 +128,7 @@ public class BookListScreen {
 
    public void clickBookName()
    {
+
        String xpath = "//android.widget.ImageView[contains(@content-desc,'" + this.bookName + "')]";
        WebElement element=Drivermanager.getInstance().getDriver().findElement(By.xpath(xpath));
        element.click();

@@ -121,4 +121,19 @@ public class CashListScreenStepdef {
     public void theUserAttachedTheDocumentsForMaterialEntry() {
         EntryListScreen.getInstance().selectAttachmentsForMaterialEntry();
     }
+
+    @And("the user click the materialSell button")
+    public void theUserClickTheMaterialSellButton() {
+        EntryListScreen.getInstance().clickMaterialSellBtn();
+    }
+
+    @And("the user select the new category")
+    public void theUserSelectTheNewCategory() {
+        EntryListScreen.getInstance().clickCategoryDropdown();
+        EntryListScreen.getInstance().clickAddCategoryBtn();
+        EntryListScreen.getInstance().enterNewCategory();
+        EntryListScreen.getInstance().clickNextBtn();
+        EntryListScreen.getInstance().selectIconForCategory();
+        EntryListScreen.getInstance().clickDoneBtn();
+    }
 }
