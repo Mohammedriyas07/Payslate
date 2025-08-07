@@ -56,7 +56,7 @@
            // Drivermanager.getInstance().getDriver().findElement(textBox).click();
            WebElement textbox= Services.getInstance().waiter().until(ExpectedConditions.visibilityOfElementLocated(textBox));
            textbox.click();
-            Action.getInstance().type(String.valueOf(Datas.MobileNumber.prod_num1.getNumber()));
+            Action.getInstance().type(String.valueOf(Datas.MobileNumber.valid_num3.getNumber()));
         }
 
         public void enterInvalidMobileNumber() {

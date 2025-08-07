@@ -1,13 +1,18 @@
 package Hooks;
 
 import Drivermanager.Drivermanager;
+import Listeners.AllureTestListener;
 import Util.Util;
 import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.remote.MobileCapabilityType;
 import io.cucumber.java.After;
 import io.cucumber.java.Before;
+import io.qameta.allure.Allure;
+import org.openqa.selenium.OutputType;
+import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.remote.DesiredCapabilities;
 
+import java.io.ByteArrayInputStream;
 import java.net.MalformedURLException;
 import java.net.URL;
 
@@ -38,6 +43,13 @@ public class Hooks {
     @After
     public void tearDown()
     {
+        if (!AllureTestListener.r)
+        {
+            TakesScreenshot screenshot = (TakesScreenshot) Drivermanager.getInstance().getDriver();
+            byte[] bytes = screenshot.getScreenshotAs(OutputType.BYTES);
+            Allure.addAttachment("Failure Screenshot", new ByteArrayInputStream(bytes));
+            AllureTestListener.r=true;
+        }
         Drivermanager.getInstance().quitDriver();
     }
 }

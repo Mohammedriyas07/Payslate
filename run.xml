@@ -2,6 +2,7 @@
 <suite name="Payslate">
     <listeners>
         <listener class-name="Retry.Annotation"/>
+        <listener class-name="Listeners.AllureTestListener"/>
     </listeners>
 
     <test name="Payslate testing">

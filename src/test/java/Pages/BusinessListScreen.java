@@ -8,6 +8,7 @@ import Helper.Services;
 import io.appium.java_client.AppiumBy;
 import io.appium.java_client.PerformsTouchActions;
 import io.appium.java_client.TouchAction;
+import io.appium.java_client.touch.offset.ElementOption;
 import io.appium.java_client.touch.offset.PointOption;
 import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.PointerInput;
@@ -55,9 +56,10 @@ public class BusinessListScreen {
     }
 
    public void clickAddBusinessBtn() {
+
         Services.getInstance().loader();
 
-        try {
+       try {
             Thread.sleep(1000); // Optional buffer
 
             WebElement btn = Services.getInstance()
@@ -83,7 +85,10 @@ public class BusinessListScreen {
 
             System.out.println("Tapped Add Business button.");
         } catch (Exception e) {
-            System.out.println("Error clicking Add Business: " + e.getMessage());
+           Services.getInstance()
+                    .waiter()
+                    .until(ExpectedConditions.elementToBeClickable(
+                            By.xpath("//android.widget.ImageView[@content-desc='Add Business']"))).click();
         }
     }
 

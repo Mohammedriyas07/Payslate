@@ -21,9 +21,23 @@ Feature: Feature to automate the business list screen
   @regression @sanity @business3 @sanity1
     Scenario: scenario to create a new business
       When the user enter the business name
-      And the user add the profile picture for the business
+      #And the user add the profile picture for the business
       And the user click the save button
       Then verify business name add in business list screen
+
+    Scenario: scenario to update the business name
+      When the user the click the three dots in existing business
+      And the user click the edit business
+      And the user update the business name
+      And the user click the save button
+      Then the user verify updated business name is reflecting in business list screen
+
+
+
+
+
+
+
 
 
 

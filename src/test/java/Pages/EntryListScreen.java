@@ -84,7 +84,7 @@ public class EntryListScreen {
     public void EnterAmount() {
         WebElement textBox = Services.getInstance().waiter().until(ExpectedConditions.visibilityOfElementLocated(enterAmount_textBox));
         textBox.click();
-        Action.getInstance().type(String.valueOf(Services.getInstance().randomNumberGenerator()));
+        Action.getInstance().type(String.valueOf(Services.getInstance().randomNumberGenerator())+".45");
     }
 
     public void EnterRemark() {
@@ -126,7 +126,7 @@ public class EntryListScreen {
         WebElement img = Services.getInstance().waiter().until(ExpectedConditions.visibilityOfElementLocated(imageLocation));
         img.click();
         for (int i = 0; i < 2; i++) {
-            System.out.println(Drivermanager.getInstance().getDriver().getPageSource());
+            //System.out.println(Drivermanager.getInstance().getDriver().getPageSource());
             WebElement attachmentPlus = Services.getInstance().waiter().until(ExpectedConditions.elementToBeClickable(attachmentBtnPlus));
             attachmentPlus.click();
             WebElement img2 = Services.getInstance().waiter().until(ExpectedConditions.elementToBeClickable(imageLocation));
@@ -184,7 +184,7 @@ public class EntryListScreen {
         String text = element.getAttribute("content-desc");
         String cashCount = text.substring(text.lastIndexOf("Total entries:") + "Total entries:".length());
 
-        Assert.assertEquals(listCount, Integer.parseInt(cashCount.trim()));
+        Assert.assertEquals(Integer.parseInt(cashCount.trim()),listCount);
     }
 
     public void clickAddMaterialButton() {

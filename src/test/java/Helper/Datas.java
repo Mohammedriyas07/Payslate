@@ -5,6 +5,7 @@ public class Datas {
         valid_num1(7897897897L),
         invalid_num1(5879879879L),
         valid_num2(7777777777L),
+        valid_num3(6666666666L),
         prod_num1(9874566547L);
 
         private final long number;
