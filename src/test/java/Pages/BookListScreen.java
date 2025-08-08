@@ -28,6 +28,7 @@ public class BookListScreen {
     private By currencyType=By.xpath("//*[contains(@content-desc, 'Indian Rupee')]");
     private final Map<String,String> transactionType=new HashMap<>();
     private String currentBusinessName;
+    private By allBusinessbtn=By.xpath("//android.widget.Button[contains(@content-desc,'All Businesses')]");
     private BookListScreen()
     {
         transactionType.put("all","//android.widget.RadioButton[contains(@content-desc, 'All')]");
@@ -59,7 +60,8 @@ public class BookListScreen {
        WebElement txtbox= Services.getInstance().waiter().until(ExpectedConditions.elementToBeClickable(this.bookNameTextBox));
        txtbox.click();
         this.bookName=Services.getInstance().getBookName();
-        Action.getInstance().type(this.bookName);
+       // Action.getInstance().type(this.bookName);
+        txtbox.sendKeys(this.bookName);
       WebElement e=Drivermanager.getInstance().getDriver().findElement(By.xpath("//android.view.View[@content-desc='Business Book']"));
 e.click();
        // ((AndroidDriver) Drivermanager.getInstance().getDriver()).pressKey(new KeyEvent(AndroidKey.BACK));
@@ -132,5 +134,10 @@ e.click();
        String xpath = "//android.widget.ImageView[contains(@content-desc,'" + this.bookName + "')]";
        WebElement element=Drivermanager.getInstance().getDriver().findElement(By.xpath(xpath));
        element.click();
+   }
+   public void clickAllBusinessBtn()
+   {
+    WebElement btn=Services.getInstance().waiter().until(ExpectedConditions.visibilityOfElementLocated(this.allBusinessbtn));
+    btn.click();
    }
 }

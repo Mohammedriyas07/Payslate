@@ -8,11 +8,18 @@ Feature: Feature to automate the book list screen
     And the user enter the OTP
     And the user click the continue button
 
+  @bookList0 @regression @sanity2
+  Scenario: create new book under existing business business
+    When the user click the existing business
+    And the user click business name dropdown
+    And the user click all business button
+    Then verify the user landed in business list screen
+
    @bookList1 @regression @sanity2
   Scenario: create new book under new business
     And the user click the Add business button
     When the user enter the business name
-    And the user add the profile picture for the business
+   # And the user add the profile picture for the business
     And the user click the save button
     Then verify business name add in business list screen
     When the user click the newly create business

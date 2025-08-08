@@ -38,10 +38,12 @@ public class BusinessListScreen {
     private By profilePicture_selectOption = By.xpath("//android.view.View[@content-desc='Choose from gallery']");
     private By image_1 = By.xpath("(//android.widget.ImageView[@resource-id='com.google.android.providers.media.module:id/icon_thumbnail'])[1]");
     private By image_saveBtn = By.xpath("//android.widget.Button[@content-desc='Crop']");
-
-
+    private By editBusiness=By.xpath("//android.widget.ImageView[@content-desc='Edit Business']");
     private String business_name = "";
-
+    private By businessSettings=By.xpath("//android.widget.ImageView[@content-desc='Business Settings']");
+    private By deleteBusiness=By.xpath("//android.widget.ImageView[contains(@content-desc,'Delete Business')]");
+    private By doneBtn=By.xpath("//android.widget.Button[@content-desc='Done']");
+    private By yourBusinessTxt=By.xpath("//android.view.View[contains(@content-desc,'Your Businesses')]");
     private BusinessListScreen() {
 
     }
@@ -99,11 +101,13 @@ public class BusinessListScreen {
       WebElement textbox=  Services.getInstance().waiter().until(ExpectedConditions.visibilityOfElementLocated(business_nameTextBox));
       textbox.click();
         if (singletxt) {
-            Action.getInstance().type("T");
+            //Action.getInstance().type("T");
+            textbox.sendKeys("T");
         } else {
             this.business_name = Services.getInstance().getBusinessName();
 
-            Action.getInstance().type(this.business_name);
+           // Action.getInstance().type(this.business_name);
+            textbox.sendKeys(this.business_name);
         }
     }
 
@@ -152,7 +156,7 @@ public class BusinessListScreen {
         if (businessName.indexOf(this.business_name) != -1) {
             System.out.println("Business name sucessfully added");
         } else {
-            System.out.println("not added");
+            System.out.println("not added or deleted");
         }
     }
 
@@ -162,9 +166,9 @@ public class BusinessListScreen {
                 .findElement(By.xpath("//android.widget.ImageView[contains(@content-desc, '" + this.business_name + "')]"))
                 .click();
     }
-
+private String contentDesc;
     public void clickExistingBusiness() {
-        By businessImage = By.xpath("//android.widget.ImageView");
+        By businessImage = By.xpath("//android.widget.ImageView[contains(@content-desc,'Created by')]");
 
         // Retry block for stale element handling
         for (int retry = 0; retry < 3; retry++) {
@@ -181,13 +185,12 @@ public class BusinessListScreen {
 
                     WebElement candidate = freshElements.get(i);
 
-                    String contentDesc = candidate.getAttribute("content-desc");
+                    this.contentDesc = candidate.getAttribute("content-desc");
 
                     if (contentDesc != null && !contentDesc.trim().isEmpty() && !contentDesc.equalsIgnoreCase("null")) {
                         // Wait until element is clickable before clicking
                         WebElement clickable = Services.getInstance().waiter()
                                 .until(ExpectedConditions.elementToBeClickable(candidate));
-
                         clickable.click();
                         System.out.println("Clicked on existing business with content-desc: " + contentDesc);
                         return; // Done
@@ -203,5 +206,104 @@ public class BusinessListScreen {
             }
         }
     }
+    public void clickThreeDotsForExistingBusiness()
+    {
+        Services.getInstance().loader();
+        By businessImage = By.xpath("//android.widget.ImageView/android.widget.ImageView");
+       List<WebElement>webElementList= Services.getInstance().waiter().until(ExpectedConditions.visibilityOfAllElementsLocatedBy(businessImage));
+       for(int i=0;i<3;i++)
+       {
+           if(webElementList.size()>0)
+           {
+             webElementList.get(i).click();
+             break;
+           }
 
+       }
+    }
+    public void clickEditBusiness()
+    {
+       WebElement element= Services.getInstance().waiter().until(ExpectedConditions.visibilityOfElementLocated(this.editBusiness));
+       element.click();
+    }
+    String updatedBusinessName;
+    public void updateBusinessName()
+    {
+        WebElement textbox=  Services.getInstance().waiter().until(ExpectedConditions.visibilityOfElementLocated(business_nameTextBox));
+        String currentName=textbox.getAttribute("text");
+        this.updatedBusinessName=currentName+Services.getInstance().randomNumberGenerator();
+        textbox.click();
+        textbox.clear();
+       // Action.getInstance().type(this.updatedBusinessName);
+        textbox.sendKeys(this.updatedBusinessName);
+    }
+public void verifyUpdatedBusinessNameInList()
+{
+    Services.getInstance().loader();
+    WebElement element=Services.getInstance().waiter().until(ExpectedConditions.visibilityOfElementLocated(
+            By.xpath("//android.widget.ImageView[contains(@content-desc, '" + this.updatedBusinessName + "')]")));
+
+    String businessName = element.getAttribute("content-desc");
+    if (businessName.indexOf(this.business_name) != -1) {
+        System.out.println("Business name sucessfully Updated");
+    } else {
+        System.out.println("not Updated");
+    }
+}
+public void clickBusinessSettings()
+{
+    WebElement element=Services.getInstance().waiter().until(ExpectedConditions.visibilityOfElementLocated(this.businessSettings));
+    element.click();
+}
+public void clickDeleteBusiness()
+{
+   WebElement element= Services.getInstance().waiter().until(ExpectedConditions.visibilityOfElementLocated(this.deleteBusiness));
+   element.click();
+}
+public void clickDoneBtn()
+{
+    WebElement btn=Services.getInstance().waiter().until(ExpectedConditions.visibilityOfElementLocated(this.doneBtn));
+    btn.click();
+}
+public void  verifyBusinessNameDeletedSuccessfully()
+{
+    String path="//android.widget.ImageView[contains(@content-desc, '" + this.business_name + "')]";
+    Services.getInstance().loader();
+Services.getInstance().waiter().until(ExpectedConditions.invisibilityOfElementLocated(
+            By.xpath(path)));
+    try
+    {
+        Drivermanager.getInstance().getDriver().findElement(By.xpath(path));
+    }
+    catch (Exception e)
+    {
+        System.out.println("Successfully deleted");
+    }
+}
+public void clickBusinessNameDropDownInBookListScreen()
+    {
+        String businessName=this.contentDesc.substring(0,this.contentDesc.indexOf("Created by")).trim();
+        String path= "//android.view.View[contains(@content-desc,'"+businessName+"')]";
+       WebElement dropdown= Services.getInstance().waiter().until(ExpectedConditions.visibilityOfElementLocated(By.xpath(path)));
+        dropdown.click();
+    }
+public void verifyItIsBusinessListScreen()
+{
+    try
+    {
+        Services.getInstance().waiter().until(ExpectedConditions.visibilityOfElementLocated(this.yourBusinessTxt));
+        System.out.println("landed successfully in businessList screen");
+    }
+    catch (Exception e)
+    {
+        System.out.println("not landed in in businessList screen");
+    }
+}
+public void enterBusinessNameExceedLimit()
+{
+    WebElement textbox=  Services.getInstance().waiter().until(ExpectedConditions.visibilityOfElementLocated(business_nameTextBox));
+    textbox.click();
+  // Action.getInstance().type(Datas.businessNameTestData.data1.getData());
+    textbox.sendKeys(Datas.businessNameTestData.data1.getData());
+}
 }

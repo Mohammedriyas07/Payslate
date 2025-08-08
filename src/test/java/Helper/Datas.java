@@ -102,4 +102,17 @@ public class Datas {
             return this.c;
         }
     }
+    public enum businessNameTestData
+    {
+        data1("uGHYEQUWYEUOQWOEQUWEOQUOWEUOIQEUOQIWUEIQUWEIQWUEIQUWIEUIQ");
+        private final String data;
+        businessNameTestData(String data)
+        {
+            this.data=data;
+        }
+        public String getData()
+        {
+            return this.data;
+        }
+    }
 }

@@ -136,4 +136,9 @@ public class CashListScreenStepdef {
         EntryListScreen.getInstance().selectIconForCategory();
         EntryListScreen.getInstance().clickDoneBtn();
     }
+
+    @Then("the user check the material count in material list screen")
+    public void theUserCheckTheMaterialCountInMaterialListScreen() {
+        EntryListScreen.getInstance().checkMaterialCountInMaterialListScreen();
+    }
 }

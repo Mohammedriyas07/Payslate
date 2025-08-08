@@ -24,7 +24,7 @@ public class EntryListScreen {
     private By addCashEntryBtn = By.xpath("//android.widget.ImageView[@content-desc='Add Cash Book Entry']");
     private By cashInBtn = By.xpath("//android.widget.Button[@content-desc='+ CASH IN']");
     private By enterAmount_textBox = By.xpath("//android.widget.EditText[contains(@hint,'Enter Amount')]");
-    private By remark_textBox = By.xpath("//android.view.View[@text='No Category']/parent::android.view.View/android.widget.ImageView[2]");
+    private By remark_textBox = By.xpath("//android.view.View[contains(@content-desc,'Remark')]/android.widget.EditText");
     private By catergoryDropDown = By.xpath("//android.view.View[@text='No Category']");
     private By categoryOption = By.xpath("//android.view.View[@content-desc='Profit']");
     private By attachmentBtn = By.xpath("//android.view.View[@content-desc='Attach Image or PDF']");
@@ -35,13 +35,13 @@ public class EntryListScreen {
     private By paymentMode_enterText = By.xpath("//android.widget.EditText[@hint='Enter your payment mode']");
     private By paymentMode_createBtn = By.xpath("//android.widget.Button[@content-desc='Create']");
     private By materialEntry = By.xpath("//android.widget.ImageView[contains(@content-desc, 'Material In') and contains(@content-desc, 'Material Out')]");
-    private By cashEntryCount = By.xpath("//android.view.View[contains(@content-desc, 'Cash In') or contains(@content-desc, 'Cash Out')]");
+    private By cashOrMaterialEntryCount = By.xpath("//android.widget.Button[contains(@content-desc, 'Cash In') or contains(@content-desc, 'Cash Out') or contains(@content-desc, 'Material In') or contains(@content-desc, 'Material Out')]");
     private By addMaterialBookEntryBtn = By.xpath("//android.widget.ImageView[contains(@content-desc,'Add Material Book Entry')]");
     private By materailBuybtn = By.xpath("//android.widget.Button[@content-desc='Buy']");
-    private By materialNameTextField = By.xpath("//android.widget.ImageView[contains(@hint,'Material Name')]");
-    private By materialQuantityTextField = By.xpath("//android.widget.ImageView[contains(@hint,'Quantity')]");
-    private By materialPricePerUnitTextField = By.xpath("//android.widget.ImageView[contains(@hint,'Price Per Unit')]");
-    private By materiaTotalPrice = By.xpath("//android.widget.ImageView[@hint='Total' and @focusable='true']");
+    private By materialNameTextField = By.xpath("//android.view.View[contains(@content-desc,'Material Name')]/android.widget.EditText");
+    private By materialQuantityTextField = By.xpath("//android.view.View[contains(@content-desc,'Quantity')]/android.widget.EditText");
+    private By materialPricePerUnitTextField = By.xpath("//android.view.View[contains(@content-desc,'Price Per Unit')]/android.widget.EditText");
+    private By materiaTotalPrice = By.xpath("//android.view.View[contains(@content-desc,'Total')]/android.widget.EditText");
     private By materialSellBtn = By.xpath("//android.widget.Button[@content-desc='Sell']");
     private By addCategoryBtn = By.xpath("//android.widget.ImageView[@content-desc='Add Category']");
     private By newCategoryTextBox = By.xpath("//android.widget.EditText[@hint='Item Name']");
@@ -84,13 +84,15 @@ public class EntryListScreen {
     public void EnterAmount() {
         WebElement textBox = Services.getInstance().waiter().until(ExpectedConditions.visibilityOfElementLocated(enterAmount_textBox));
         textBox.click();
-        Action.getInstance().type(String.valueOf(Services.getInstance().randomNumberGenerator())+".45");
+        //Action.getInstance().type(String.valueOf(Services.getInstance().randomNumberGenerator())+".45");
+        textBox.sendKeys(String.valueOf(Services.getInstance().randomNumberGenerator())+".45");
     }
 
     public void EnterRemark() {
         WebElement textBox = Drivermanager.getInstance().getDriver().findElement(remark_textBox);
         textBox.click();
-        Action.getInstance().type(Datas.remarks.cashRemark.getRemark() + " " + Services.getInstance().randomNumberGenerator());
+      //  Action.getInstance().type(Datas.remarks.cashRemark.getRemark() + " " + Services.getInstance().randomNumberGenerator());
+        textBox.sendKeys(Datas.remarks.cashRemark.getRemark() + " " + Services.getInstance().randomNumberGenerator());
     }
 
     public void clickCategoryDropdown() {
@@ -103,7 +105,7 @@ public class EntryListScreen {
     }
 
     public void selectAttachments() {
-        By attachmentBtnPlus = By.xpath("//android.view.View[contains(@content-desc, 'File supported')]/preceding-sibling::android.view.View[@clickable='true' and not(@text='Profit')][last()]");
+        By attachmentBtnPlus = By.xpath("//android.view.View[contains(@content-desc, 'File supported')]/preceding-sibling::android.view.View[@clickable='true' and not(@content-desc='Category')][last()]");
         //Drivermanager.getInstance().getDriver().findElement(attachmentBtn).click();
         WebElement attachment = Services.getInstance().waiter().until(ExpectedConditions.visibilityOfElementLocated(attachmentBtn));
         attachment.click();
@@ -147,7 +149,8 @@ public class EntryListScreen {
     public void enterPaymentModeText() {
         WebElement element = Drivermanager.getInstance().getDriver().findElement(paymentMode_enterText);
         element.click();
-        Action.getInstance().type("paypal " + Services.getInstance().randomNumberGenerator());
+        //Action.getInstance().type("paypal " + Services.getInstance().randomNumberGenerator());
+        element.sendKeys("paypal " + Services.getInstance().randomNumberGenerator());
     }
 
     public void clickpaymentModeCreateBtn() {
@@ -166,7 +169,7 @@ public class EntryListScreen {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        List<WebElement> list = Services.getInstance().waiter().ignoring(StaleElementReferenceException.class).until(ExpectedConditions.visibilityOfAllElementsLocatedBy(cashEntryCount));
+        List<WebElement> list = Services.getInstance().waiter().ignoring(StaleElementReferenceException.class).until(ExpectedConditions.visibilityOfAllElementsLocatedBy(this.cashOrMaterialEntryCount));
         int listCount = list.size();
         AppiumDriver driver = Drivermanager.getInstance().getDriver();
         if (driver instanceof AndroidDriver) {
@@ -200,7 +203,8 @@ public class EntryListScreen {
     public void enterMaterialName() {
         WebElement element = Services.getInstance().waiter().until(ExpectedConditions.elementToBeClickable(this.materialNameTextField));
         element.click();
-        Action.getInstance().type("steel " + Services.getInstance().randomNumberGenerator());
+       // Action.getInstance().type("steel " + Services.getInstance().randomNumberGenerator());
+        element.sendKeys("steel " + Services.getInstance().randomNumberGenerator());
     }
 
     private String quantity;
@@ -210,15 +214,17 @@ public class EntryListScreen {
         WebElement element = Services.getInstance().waiter().until(ExpectedConditions.elementToBeClickable(this.materialQuantityTextField));
         element.click();
         this.quantity = Integer.toString(Services.getInstance().randomNumberGenerator() / 2);
-        Action.getInstance().type(this.quantity);
+        //Action.getInstance().type(this.quantity);
+        element.sendKeys(this.quantity);
     }
 
     public void enterMaterialPricePerUnit() {
         WebElement element = Services.getInstance().waiter().until(ExpectedConditions.elementToBeClickable(this.materialPricePerUnitTextField));
         element.click();
         this.pricePerUnit = Integer.toString(Services.getInstance().randomNumberGenerator() / 2);
-        ;
-        Action.getInstance().type(this.pricePerUnit);
+
+        //Action.getInstance().type(this.pricePerUnit);
+        element.sendKeys(this.pricePerUnit);
     }
 
     public void validateMaterialTotal() {
@@ -241,7 +247,8 @@ public class EntryListScreen {
     public void enterNewCategory() {
         WebElement textbox = Services.getInstance().waiter().until(ExpectedConditions.visibilityOfElementLocated(this.newCategoryTextBox));
         textbox.click();
-        Action.getInstance().type(Datas.category.category1.getCategory());
+        //Action.getInstance().type(Datas.category.category1.getCategory());
+        textbox.sendKeys(Datas.category.category1.getCategory());
 //        AppiumDriver driver = Drivermanager.getInstance().getDriver();
 //        if (driver instanceof AndroidDriver) {
 //            ((AndroidDriver) driver).pressKey(new KeyEvent(AndroidKey.BACK));
@@ -259,7 +266,7 @@ public class EntryListScreen {
     {
         Random ran=new Random();
         int i= ran.nextInt(10);
-        String xpath="//android.widget.FrameLayout[@resource-id='android:id/content']/android.widget.FrameLayout/android.widget.FrameLayout/android.view.View/android.view.View/android.view.View/android.view.View[2]/android.view.View/android.widget.ImageView["+i+"]";
+        String xpath="//android.widget.FrameLayout[@resource-id='android:id/content']/android.widget.FrameLayout/android.view.View/android.view.View/android.view.View/android.view.View[2]/android.view.View/android.widget.ImageView["+i+"]";
        WebElement element= Services.getInstance().waiter().until(ExpectedConditions.visibilityOfElementLocated(By.xpath(xpath)));
        element.click();
 
@@ -267,5 +274,31 @@ public class EntryListScreen {
     public void clickDoneBtn()
     {
         Drivermanager.getInstance().getDriver().findElement(this.doneBtn).click();
+    }
+    public void checkMaterialCountInMaterialListScreen() {
+        try {
+            Thread.sleep(5000);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        List<WebElement> list = Services.getInstance().waiter().ignoring(StaleElementReferenceException.class).until(ExpectedConditions.visibilityOfAllElementsLocatedBy(this.cashOrMaterialEntryCount));
+        int listCount = list.size();
+        AppiumDriver driver = Drivermanager.getInstance().getDriver();
+        if (driver instanceof AndroidDriver) {
+            ((AndroidDriver) driver).pressKey(new KeyEvent(AndroidKey.BACK));
+        } else {
+            driver.navigate().back();
+        }
+
+        WebElement element = Services.getInstance().waiter().until(ExpectedConditions.visibilityOfElementLocated(materialEntry));
+        try {
+            Thread.sleep(2000);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        String text = element.getAttribute("content-desc");
+        String cashCount = text.substring(text.lastIndexOf("Total entries:") + "Total entries:".length());
+
+        Assert.assertEquals(Integer.parseInt(cashCount.trim()),listCount);
     }
 }

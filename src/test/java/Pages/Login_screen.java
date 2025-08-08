@@ -56,13 +56,16 @@
            // Drivermanager.getInstance().getDriver().findElement(textBox).click();
            WebElement textbox= Services.getInstance().waiter().until(ExpectedConditions.visibilityOfElementLocated(textBox));
            textbox.click();
-            Action.getInstance().type(String.valueOf(Datas.MobileNumber.valid_num3.getNumber()));
+           // Action.getInstance().type(String.valueOf(Datas.MobileNumber.valid_num3.getNumber()));
+            textbox.sendKeys(String.valueOf(Datas.MobileNumber.valid_num3.getNumber()));
+            Drivermanager.getInstance().getDriver().findElement(By.xpath("//android.view.View[@content-desc='Welcome!']")).click();
         }
 
         public void enterInvalidMobileNumber() {
             WebElement textbox=Services.getInstance().waiter().until(ExpectedConditions.visibilityOfElementLocated(textBox));
             textbox.click();
-            Action.getInstance().type(String.valueOf(Datas.MobileNumber.invalid_num1.getNumber()));
+            //Action.getInstance().type(String.valueOf(Datas.MobileNumber.invalid_num1.getNumber()));
+            textbox.sendKeys(String.valueOf(Datas.MobileNumber.invalid_num1.getNumber()));
         }
 
         public void clickContinueBtn() {
@@ -84,7 +87,8 @@
                 otp_num = otp_num + matcher.group();
             }
             driver.findElement(textBox).click();
-            Action.getInstance().type(otp_num);
+           // Action.getInstance().type(otp_num);
+            driver.findElement(textBox).sendKeys(otp_num);
         }
 
         public void verify_warning_popup() {
@@ -110,7 +114,8 @@
                 otp_num = otp_num + matcher.group();
             }
             driver.findElement(textBox).click();
-            Action.getInstance().type("123456");
+            //Action.getInstance().type("123456");
+            driver.findElement(textBox).sendKeys("123456");
         }
 
         public void verifyOtpErrorMsg() {
@@ -123,7 +128,8 @@
            WebElement textbox= Services.getInstance().waiter().until(ExpectedConditions.visibilityOfElementLocated(textBox));
            textbox.click();
             this.mobileNumber=Util.getInstance().getNewMobileNumber();
-            Action.getInstance().type(mobileNumber);
+          //  Action.getInstance().type(mobileNumber);
+            textbox.sendKeys(mobileNumber);
         }
 
         public void enterNewUserName() {
@@ -132,20 +138,23 @@
             username_element.click();
             this.username = "test" + Services.getInstance().randomNumberGenerator();
 
-            Action.getInstance().type(this.username);
+           // Action.getInstance().type(this.username);
+            username_element.sendKeys(this.username);
         }
 
         public void enterNewEmailId() {
          WebElement element= Services.getInstance().waiter().until(ExpectedConditions.visibilityOfElementLocated(email_textBox_userCreation));
             element.click();
             this.email = this.username + "@gmail.com";
-            Action.getInstance().type(this.email);
+            //Action.getInstance().type(this.email);
+            element.sendKeys(this.email);
         }
 
         public void enterPassword() {
             Drivermanager.getInstance().getDriver().findElement(password_textBox_userCreation).click();
             this.password = "SoftSuave" + Services.getInstance().randomNumberGenerator();
-            Action.getInstance().type(this.password);
+            //Action.getInstance().type(this.password);
+            Drivermanager.getInstance().getDriver().findElement(password_textBox_userCreation).sendKeys(this.password);
         }
 
         public void clickCreateAccountbtn() {
@@ -181,7 +190,8 @@
         public void enterLessThanThreeCharinUserTextBox() {
             WebElement username_element= Services.getInstance().waiter().until(ExpectedConditions.elementToBeClickable(name_textBox_userCreation));
             username_element.click();
-            Action.getInstance().type("Hi");
+            //Action.getInstance().type("Hi");
+            username_element.sendKeys("Hi");
         }
         public void verifyErrorMsgForLessThanThreeCharinUserTextBox()
         {

@@ -44,4 +44,8 @@ public class BookListScreenStepdef {
     }
 
 
+    @And("the user click all business button")
+    public void theUserClickAllBusinessButton() {
+        BookListScreen.getInstance().clickAllBusinessBtn();
+    }
 }

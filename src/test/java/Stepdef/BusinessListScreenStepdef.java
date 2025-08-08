@@ -52,4 +52,55 @@ public class BusinessListScreenStepdef {
     public void theUserClickTheExistingBusiness() {
         BusinessListScreen.getInstance().clickExistingBusiness();
     }
+
+    @When("the user the click the three dots in existing business")
+    public void theUserTheClickTheThreeDotsInExistingBusiness() {
+        BusinessListScreen.getInstance().clickThreeDotsForExistingBusiness();
+    }
+
+    @And("the user click the edit business")
+    public void theUserClickTheEditBusiness() {
+    BusinessListScreen.getInstance().clickEditBusiness();
+    }
+
+    @And("the user update the business name")
+    public void theUserUpdateTheBusinessName() {
+        BusinessListScreen.getInstance().updateBusinessName();
+    }
+
+    @Then("the user verify updated business name is reflecting in business list screen")
+    public void theUserVerifyUpdatedBusinessNameIsReflectingInBusinessListScreen() {
+        BusinessListScreen.getInstance().verifyUpdatedBusinessNameInList();
+    }
+
+    @And("the user click the business settings")
+    public void theUserClickTheBusinessSettings() {
+        BusinessListScreen.getInstance().clickBusinessSettings();
+    }
+
+    @And("the user click the delete business")
+    public void theUserClickTheDeleteBusiness() {
+        BusinessListScreen.getInstance().clickDeleteBusiness();
+        BusinessListScreen.getInstance().clickDoneBtn();
+    }
+
+    @Then("verify business name deleted in business list screen")
+    public void verifyBusinessNameDeletedInBusinessListScreen() {
+        BusinessListScreen.getInstance().verifyBusinessNameDeletedSuccessfully();
+    }
+
+    @And("the user click business name dropdown")
+    public void theUserClickBusinessNameDropdown() {
+        BusinessListScreen.getInstance().clickBusinessNameDropDownInBookListScreen();
+    }
+
+    @Then("verify the user landed in business list screen")
+    public void verifyTheUserLandedInBusinessListScreen() {
+     BusinessListScreen.getInstance().verifyItIsBusinessListScreen();
+    }
+
+    @When("the user enters a character exceed limit in the Business Name text box")
+    public void theUserEntersACharacterExceedLimitInTheBusinessNameTextBox() {
+        BusinessListScreen.getInstance().enterBusinessNameExceedLimit();
+    }
 }

@@ -110,6 +110,7 @@ Feature: Feature to automate the cash and material entries
 #    And the user enter the customer phone number
 #    And the user click the save button
     And the user click the save button
+    Then the user check the material count in material list screen
 
   @material1 @entryListSanity @regression
   Scenario: to create an materialOut entry with attachments
@@ -130,6 +131,7 @@ Feature: Feature to automate the cash and material entries
 #    And the user enter the customer phone number
 #    And the user click the save button
     And the user click the save button
+    Then the user check the material count in material list screen
 
   @material2 @entryListSanity @regression
   Scenario: to create an materialOut entry without attachments
@@ -149,3 +151,4 @@ Feature: Feature to automate the cash and material entries
 #    And the user enter the customer phone number
 #    And the user click the save button
     And the user click the save button
+    Then the user check the material count in material list screen

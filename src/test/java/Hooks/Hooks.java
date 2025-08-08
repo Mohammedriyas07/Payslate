@@ -7,6 +7,7 @@ import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.remote.MobileCapabilityType;
 import io.cucumber.java.After;
 import io.cucumber.java.Before;
+import io.cucumber.java.Scenario;
 import io.qameta.allure.Allure;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
@@ -41,15 +42,18 @@ public class Hooks {
         }
     }
     @After
-    public void tearDown()
+    public void tearDown(Scenario scenario)
     {
-        if (!AllureTestListener.r)
-        {
-            TakesScreenshot screenshot = (TakesScreenshot) Drivermanager.getInstance().getDriver();
-            byte[] bytes = screenshot.getScreenshotAs(OutputType.BYTES);
-            Allure.addAttachment("Failure Screenshot", new ByteArrayInputStream(bytes));
-            AllureTestListener.r=true;
+        try {
+            if (scenario.isFailed()) {
+                TakesScreenshot screenshot = (TakesScreenshot) Drivermanager.getInstance().getDriver();
+                byte[] bytes = screenshot.getScreenshotAs(OutputType.BYTES);
+                Allure.addAttachment("Failure Screenshot", new ByteArrayInputStream(bytes));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            Drivermanager.getInstance().quitDriver();
         }
-        Drivermanager.getInstance().quitDriver();
     }
 }
