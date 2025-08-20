@@ -48,4 +48,34 @@ public class BookListScreenStepdef {
     public void theUserClickAllBusinessButton() {
         BookListScreen.getInstance().clickAllBusinessBtn();
     }
+
+    @And("the user click the three dots for existing book")
+    public void theUserClickTheThreeDotsForExistingBook() {
+        BookListScreen.getInstance().clickTheExistingBook();
+    }
+
+    @And("the user click the book settings option")
+    public void theUserClickTheBookSettingsOption() {
+        BookListScreen.getInstance().clickBookSettingsBtn();
+    }
+
+    @And("the user click edit icon to update book name")
+    public void theUserClickEditIconToUpdateBookName() {
+        BookListScreen.getInstance().clickBookSettingsEditIcon();
+    }
+
+    @And("the user update the book name")
+    public void theUserUpdateTheBookName() {
+    BookListScreen.getInstance().updateBookName();
+    }
+
+    @And("the user click the book settings save button")
+    public void theUserClickTheBookSettingsSaveButton() {
+        BookListScreen.getInstance().clickBookSettingsSaveBtn();
+    }
+
+    @Then("verify book name updated in book list screen")
+    public void verifyBookNameUpdatedInBookListScreen() {
+        BookListScreen.getInstance().verifyUpdatedBookNameInBookListScreen();
+    }
 }

@@ -44,7 +44,7 @@ public class EntryListScreen {
     private By materiaTotalPrice = By.xpath("//android.view.View[contains(@content-desc,'Total')]/android.widget.EditText");
     private By materialSellBtn = By.xpath("//android.widget.Button[@content-desc='Sell']");
     private By addCategoryBtn = By.xpath("//android.widget.ImageView[@content-desc='Add Category']");
-    private By newCategoryTextBox = By.xpath("//android.widget.EditText[@hint='Item Name']");
+    private By newCategoryTextBox = By.xpath("//android.widget.EditText[@hint='Category name']");
     private By nextBtn = By.xpath("//android.widget.Button[@content-desc='Next']");
     private By doneBtn=By.xpath("//android.widget.Button[@content-desc='Done']");
     
@@ -269,7 +269,6 @@ public class EntryListScreen {
         String xpath="//android.widget.FrameLayout[@resource-id='android:id/content']/android.widget.FrameLayout/android.view.View/android.view.View/android.view.View/android.view.View[2]/android.view.View/android.widget.ImageView["+i+"]";
        WebElement element= Services.getInstance().waiter().until(ExpectedConditions.visibilityOfElementLocated(By.xpath(xpath)));
        element.click();
-
     }
     public void clickDoneBtn()
     {

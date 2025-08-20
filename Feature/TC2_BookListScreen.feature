@@ -41,6 +41,17 @@ Feature: Feature to automate the book list screen
     And the user verify the book name in book list screen
     And the check the book count in business list screen
 
+  @bookList3 @regression @sanity2
+    Scenario: to update existing book name
+      When the user click the existing business
+      And the user click the three dots for existing book
+      And the user click the book settings option
+      And the user click edit icon to update book name
+      And the user update the book name
+      And the user click the book settings save button
+      Then verify book name updated in book list screen
+
+
 
 
 

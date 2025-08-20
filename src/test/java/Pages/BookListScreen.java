@@ -29,6 +29,11 @@ public class BookListScreen {
     private final Map<String,String> transactionType=new HashMap<>();
     private String currentBusinessName;
     private By allBusinessbtn=By.xpath("//android.widget.Button[contains(@content-desc,'All Businesses')]");
+    private By bookList=By.xpath("//android.widget.ImageView[contains(@content-desc,'Cash entries') or contains(@content-desc,'Material entries')]/android.widget.ImageView");
+    private By bookSettingsBtn=By.xpath("//android.widget.ImageView[contains(@content-desc,'Book Settings')]");
+    private By bookSettingsEditIcon=By.xpath("//android.view.View[@content-desc='Book Name']/android.widget.ImageView");
+    private By bookSettingsTextBox=By.xpath("//android.view.View[contains(@content-desc,'Book Name')]/android.widget.EditText");
+    private By bookSettingsSaveBtn=By.xpath("//android.view.View[contains(@content-desc,'Book Settings Save')]");
     private BookListScreen()
     {
         transactionType.put("all","//android.widget.RadioButton[contains(@content-desc, 'All')]");
@@ -139,5 +144,55 @@ e.click();
    {
     WebElement btn=Services.getInstance().waiter().until(ExpectedConditions.visibilityOfElementLocated(this.allBusinessbtn));
     btn.click();
+   }
+   public void clickTheExistingBook()
+   {
+     List<WebElement> booklist=  Services.getInstance().waiter().until(ExpectedConditions.visibilityOfAllElementsLocatedBy(bookList));
+     if (!booklist.isEmpty())
+     {
+         for (WebElement book:booklist)
+         {
+             book.click();
+             break;
+         }
+     }
+     else {
+         throw new RuntimeException("book list is empty");
+     }
+   }
+   public void clickBookSettingsBtn()
+   {
+       WebElement bookSettings=Services.getInstance().waiter().until(ExpectedConditions.visibilityOfElementLocated(this.bookSettingsBtn));
+       bookSettings.click();
+   }
+   public void clickBookSettingsEditIcon()
+   {
+      WebElement editIcon= Services.getInstance().waiter().until(ExpectedConditions.visibilityOfElementLocated(this.bookSettingsEditIcon));
+      editIcon.click();
+   }
+   private String updatedBookName;
+   public void updateBookName()
+   {
+       WebElement textBox=Drivermanager.getInstance().getDriver().findElement(this.bookSettingsTextBox);
+       textBox.clear();
+       this.updatedBookName=Services.getInstance().getBookName();
+       textBox.sendKeys(this.updatedBookName);
+   }
+   public void clickBookSettingsSaveBtn()
+   {
+    WebElement saveBtn=Services.getInstance().waiter().until(ExpectedConditions.elementToBeClickable(this.bookSettingsSaveBtn));
+    saveBtn.click();
+   }
+   public void verifyUpdatedBookNameInBookListScreen()
+   {
+       String path="//android.widget.ImageView[contains(@content-desc,'"+this.updatedBookName+"')]";
+       try
+       {
+           Services.getInstance().waiter().until(ExpectedConditions.visibilityOfElementLocated(By.xpath(path)));
+       }
+       catch (Exception e)
+       {
+           throw new RuntimeException(e.getMessage() +" : path =  "+path);
+       }
    }
 }
